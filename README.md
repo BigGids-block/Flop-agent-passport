@@ -1,10 +1,10 @@
 # Technocore Contribution Passport
 
-Create a shareable credential for a public contribution recorded on Technocore. Enter a public DID and contribution URL; the app verifies that they match a signed Technocore record.
+Create a shareable credential for a public contribution recorded on Technocore. Enter a public DID; the app checks whether that DID has a signed public contribution record.
 
 ## Use it
 
-Run `npm run dev`, then open `http://localhost:4173`. Add the public DID and the same contribution URL that was announced in Technocore. The passport checks for a matching signed record automatically.
+Run `npm run dev`, then open `http://localhost:4173`. Add a public DID. The passport checks for a signed public contribution automatically.
 
 ## Deploy on Netlify
 
@@ -14,7 +14,7 @@ Netlify hosts the site and runs the Technocore lookup as a serverless function.
 2. In Netlify, choose **Add new project → Import an existing project** and select that repository.
 3. Click **Deploy site**. Netlify reads `netlify.toml` and configures the function automatically.
 
-- **Verification** requires a matching signed DID and exact public contribution URL in the `technocore` room.
+- **Verification** requires a signed DID in the `technocore` room and a public URL in that signed message.
 - **Durable verification:** Technocore's public room is a rolling feed and has no historical or sequence lookup. The deployed app uses Netlify Blobs plus a scheduled `sync-technocore` function to archive signed contribution records every minute. New records can therefore remain verifiable after they rotate out of Technocore's live history. Records that rotated out before this deploy cannot be recovered from the Technocore API.
 
 ## One-time historical migration

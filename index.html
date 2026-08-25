@@ -6,7 +6,6 @@
     <meta name="theme-color" content="#090a12" />
     <title>Contribution Passport — Technocore</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="role.css" />
     <link rel="stylesheet" href="card-layout.css" />
   </head>
   <body>
@@ -15,83 +14,35 @@
         <a class="brand" href="#top" aria-label="Contribution Passport home"><span class="brand-mark">✦</span> TECHNOCORE</a>
         <div class="intro-copy">
           <p class="eyebrow">CONTRIBUTION PASSPORT</p>
-          <h1>Make your work<br /><em>verifiable.</em></h1>
-          <p class="lede">Add your public DID and contribution link. We find the signed Technocore record and create a passport people can trust.</p>
+          <h1>One DID.<br /><em>One answer.</em></h1>
+          <p class="lede">Paste a public Technocore DID. We check whether that identity has a recorded public contribution.</p>
         </div>
-        <div class="how-it-works">
-          <span>01</span><p>Add your public DID</p>
-          <span>02</span><p>Paste your contribution link</p>
-          <span>03</span><p>Share your recorded passport</p>
-        </div>
+        <div class="how-it-works"><span>01</span><p>Paste your public DID</p><span>02</span><p>We check the signed record</p><span>03</span><p>Share the result</p></div>
         <p class="footer-note">No private keys. Public records only <span>✦</span></p>
       </section>
 
       <section class="workspace" id="top">
         <form class="form-panel" id="passport-form">
-          <div class="panel-heading">
-            <p class="eyebrow">CREATE YOUR PASSPORT</p>
-            <p>We only need the public details people should see. Verification runs automatically after you enter your DID and contribution link.</p>
-          </div>
-
+          <div class="panel-heading"><p class="eyebrow">CHECK A CONTRIBUTION</p><p>Nothing else is required. Your public DID is enough.</p></div>
           <label class="field">
-            <span>Your name <b>shown on passport</b></span>
-            <input id="name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Big Gids" />
-          </label>
-          <label class="field">
-            <span>Your role <b>shown on passport</b></span>
-            <select id="role" name="role">
-              <option value="BUILDER">Builder</option>
-              <option value="CONTENT CREATOR">Content Creator</option>
-            </select>
-          </label>
-          <label class="field">
-            <span>Contribution title <b>shown on passport</b></span>
-            <input id="title" name="title" type="text" maxlength="120" placeholder="Agent Passport Generator" />
-          </label>
-          <label class="field">
-            <span>Contribution link <b>required to verify</b></span>
-            <input id="contribution-url" name="contribution-url" type="url" autocomplete="url" placeholder="https://github.com/you/project" required />
-            <small id="url-error" role="alert"></small>
-          </label>
-          <label class="field">
-            <span>Technocore DID <b>required to verify</b></span>
+            <span>Technocore DID <b>required</b></span>
             <input id="did" name="did" type="text" autocomplete="off" placeholder="did:key:z6Mkg..." required />
             <small id="did-error" role="alert"></small>
           </label>
-          <button class="check-record" type="submit">Check recorded contribution <b>↻</b></button>
-          <p class="instant-note">Your name and title are displayed information. The green verification mark appears only when the public DID and contribution link match a signed Technocore record.</p>
+          <button class="check-record" type="submit">Check contribution record <b>↻</b></button>
+          <p class="instant-note">A passport becomes recorded only when this DID matches a signed Technocore contribution message containing a public link.</p>
         </form>
 
         <div class="preview-panel">
-          <div class="preview-bar">
-            <span class="live-dot"></span><span>LIVE PREVIEW</span>
-            <span class="status" id="lookup-status">ADD YOUR DETAILS</span>
-          </div>
+          <div class="preview-bar"><span class="live-dot"></span><span>LIVE PREVIEW</span><span class="status" id="lookup-status">PASTE A DID</span></div>
           <article class="passport" id="passport" aria-label="Contribution passport preview">
             <div class="passport-glow"></div>
-            <div class="passport-topline">
-              <span class="passport-logo"><b>✦</b> TECHNOCORE</span>
-              <span class="passport-number">CONTRIBUTION PASSPORT</span>
-            </div>
-            <div class="identity-block">
-              <div class="avatar" id="avatar">?</div>
-              <div><p class="passport-label">CONTRIBUTOR</p><h2 id="card-name">Your name</h2><p class="role-badge" id="card-role">BUILDER</p></div>
-            </div>
+            <div class="passport-topline"><span class="passport-logo"><b>✦</b> TECHNOCORE</span><span class="passport-number">CONTRIBUTION PASSPORT</span></div>
+            <div class="identity-block"><div class="avatar" id="avatar">?</div><div><p class="passport-label">PUBLIC IDENTITY</p><h2 id="card-name">Technocore Contributor</h2></div></div>
             <div class="rule"></div>
-            <section class="contribution-block">
-              <div class="contribution-heading"><p class="passport-label">CONTRIBUTION</p><p class="type-label">PUBLIC WORK</p></div>
-              <h3 id="card-title">Your contribution</h3>
-              <p class="proof-link" id="card-link">Add a public contribution link</p>
-            </section>
-            <section class="verification" id="verification" aria-live="polite">
-              <div class="verification-state" id="activity-status"><span class="check-mark">•</span><span id="verification-label">NOT YET VERIFIED</span></div>
-              <p id="verification-message">Add your DID and contribution link to check for a signed Technocore record.</p>
-              <p class="record-meta" id="record-meta">Public record details will appear here.</p>
-            </section>
-            <div class="passport-bottom">
-              <div><p class="passport-label">SIGNED DID</p><p class="did-value" id="card-did">did:key:—</p></div>
-              <a class="proof-action" id="proof-action" href="#" target="_blank" rel="noreferrer" hidden>View contribution ↗</a>
-            </div>
+            <section class="contribution-block"><div class="contribution-heading"><p class="passport-label">CONTRIBUTION</p><p class="type-label">PUBLIC RECORD</p></div><h3 id="card-title">Check your DID</h3><p class="proof-link" id="card-link">A recorded contribution link will appear here.</p></section>
+            <section class="verification" id="verification" aria-live="polite"><div class="verification-state"><span class="check-mark">•</span><span id="verification-label">NOT YET CHECKED</span></div><p id="verification-message">Paste a public DID to check for a recorded contribution.</p><p class="record-meta" id="record-meta">Technocore record details will appear here.</p></section>
+            <div class="passport-bottom"><div><p class="passport-label">SIGNED DID</p><p class="did-value" id="card-did">did:key:—</p></div><a class="proof-action" id="proof-action" href="#" target="_blank" rel="noreferrer" hidden>View contribution ↗</a></div>
           </article>
           <div class="actions"><button class="secondary" id="download" type="button">↓ Download PNG</button><button class="secondary" id="share" type="button">Share <span>↗</span></button></div>
           <p class="action-feedback" id="feedback" aria-live="polite"></p>
