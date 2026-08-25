@@ -1,0 +1,20 @@
+/* A wide credential reads better as a shareable passport than a square card. */
+.passport {
+  aspect-ratio: 1.7 / 1;
+  min-height: 0;
+  padding: clamp(20px, 2.4vw, 28px);
+}
+
+.identity-block { margin: 22px 0 18px; }
+.contribution-block { padding: 16px 0; }
+.contribution-block h3 { margin: 8px 0 9px; font-size: clamp(28px, 3.6vw, 44px); }
+.verification { padding: 12px 15px; }
+.verification p { margin-top: 7px; }
+.passport-bottom { margin-top: 15px; }
+
+@media (max-width: 600px) {
+  .passport {
+    aspect-ratio: 1.22 / 1;
+    min-height: 480px;
+  }
+}
