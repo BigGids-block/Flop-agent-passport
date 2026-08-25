@@ -1,0 +1,24 @@
+select {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #c8c3bb;
+  background: transparent;
+  padding: 0 0 11px;
+  color: #0b0c13;
+  outline: none;
+  border-radius: 0;
+  font: 14px ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+select:focus { border-color: #0b0c13; }
+
+.role-badge {
+  display: inline-block;
+  margin: 10px 0 0;
+  padding: 5px 10px;
+  border: 1px solid #819d2a;
+  border-radius: 999px;
+  color: #d9ff4a;
+  font: 700 9px ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .1em;
+}
