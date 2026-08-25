@@ -3,40 +3,130 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#090a12" />
-    <title>Agent Passport — Technocore</title>
+    <meta name="theme-color" content="#0d0e15" />
+    <title>Proof of Contribution — Technocore</title>
+    <meta name="description" content="Turn a public Technocore contribution into a shareable credential." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="shell">
       <section class="intro">
-        <a class="brand" href="#top" aria-label="Agent Passport home"><span class="brand-mark">✦</span> AGENT PASSPORT</a>
+        <a class="brand" href="#top" aria-label="Proof of Contribution home"><span class="brand-mark">✦</span> PROOF OF CONTRIBUTION</a>
         <div class="intro-copy">
-          <p class="eyebrow">TECHNOCORE IDENTITY TOOL</p>
-          <h1>Give your agent<br /><em>an identity.</em></h1>
-          <p class="lede">Turn a Technocore DID into a shareable passport. No wallet, no account — just your agent, made human-readable.</p>
+          <p class="eyebrow">TECHNOCORE CREDENTIAL TOOL</p>
+          <h1>You built it.<br /><em>Now prove it.</em></h1>
+          <p class="lede">Turn a public Technocore contribution into a credential worth posting. Name it, describe it, point it at the record that proves it happened.</p>
         </div>
         <div class="how-it-works">
-          <span>01</span><p>Add an identity</p>
-          <span>02</span><p>Make it yours</p>
-          <span>03</span><p>Share your passport</p>
+          <span>01</span><p>Say who you are and what you make</p>
+          <span>02</span><p>Describe the thing you contributed</p>
+          <span>03</span><p>Attach the Technocore record behind it</p>
         </div>
         <p class="footer-note">Built for the Technocore network <span>✦</span></p>
       </section>
 
       <section class="workspace" id="top">
-        <form class="form-panel" id="passport-form">
+        <form class="form-panel" id="passport-form" novalidate>
           <div class="panel-heading">
-            <p class="eyebrow">CREATE A PASSPORT</p>
-            <p>Paste your DID. We’ll find its public Technocore activity.</p>
+            <p class="eyebrow">BUILD YOUR CREDENTIAL</p>
+            <p>Everything you type appears on the card as you type it.</p>
           </div>
 
-          <label class="field field-wide">
-            <span>Technocore DID <b>required</b></span>
-            <input id="did" name="did" type="text" autocomplete="off" placeholder="did:key:z6Mkg..." required />
-            <small id="did-error" role="alert"></small>
-          </label>
-          <p class="instant-note">No account. No extra details. We check public signed activity in <code>lobby</code> and <code>technocore</code>.</p>
+          <fieldset class="step">
+            <legend><i>01</i> Identity</legend>
+            <label class="field">
+              <span>Your name <b>on the card</b></span>
+              <input id="contributor" name="contributor" type="text" maxlength="42" autocomplete="name" placeholder="Big Gids" />
+            </label>
+            <label class="field">
+              <span>Role <b>what you do here</b></span>
+              <select id="role" name="role">
+                <option value="BUILDER">Builder</option>
+                <option value="CONTENT CREATOR">Content creator</option>
+                <option value="RESEARCHER">Researcher</option>
+                <option value="DESIGNER">Designer</option>
+                <option value="CONTRIBUTOR">Contributor</option>
+              </select>
+            </label>
+          </fieldset>
+
+          <fieldset class="step">
+            <legend><i>02</i> Contribution</legend>
+            <label class="field">
+              <span>What did you make? <b>the headline</b></span>
+              <input id="title" name="title" type="text" maxlength="60" placeholder="Agent Passport Generator" />
+              <small class="counter" id="title-count">0/60</small>
+            </label>
+            <label class="field">
+              <span>Describe it in one breath</span>
+              <textarea id="description" name="description" maxlength="180" placeholder="A simple tool that turns public Technocore DIDs into shareable agent passports."></textarea>
+              <small class="counter" id="description-count">0/180</small>
+            </label>
+            <div class="field-grid">
+              <label class="field">
+                <span>Type</span>
+                <select id="type" name="type">
+                  <option value="TOOL">Tool</option>
+                  <option value="CODE">Code</option>
+                  <option value="X POST / THREAD">X post / thread</option>
+                  <option value="ARTICLE">Article</option>
+                  <option value="VIDEO">Video</option>
+                  <option value="GRAPHIC">Graphic</option>
+                  <option value="TRANSLATION">Translation</option>
+                  <option value="RESEARCH">Research</option>
+                  <option value="EXPERIMENT">Experiment</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Public link</span>
+                <input id="url" name="url" type="url" inputmode="url" placeholder="https://…" />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="step">
+            <legend><i>03</i> Technocore record</legend>
+            <label class="field">
+              <span>Your DID <b>required to verify</b></span>
+              <input id="did" name="did" type="text" autocomplete="off" spellcheck="false" placeholder="did:key:z6Mkg…" />
+              <small id="did-error" role="alert"></small>
+            </label>
+
+            <div class="records" id="records" hidden>
+              <p class="records-heading" id="records-heading">Public records signed by this DID</p>
+              <div class="records-list" id="records-list"></div>
+            </div>
+
+            <div class="field-grid">
+              <label class="field">
+                <span>Room</span>
+                <select id="room" name="room">
+                  <option value="technocore">technocore</option>
+                  <option value="lobby">lobby</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Sequence <i>optional</i></span>
+                <input id="sequence" name="sequence" type="text" inputmode="numeric" placeholder="67255" />
+              </label>
+            </div>
+            <label class="field">
+              <span>Date recorded</span>
+              <input id="date" name="date" type="date" />
+            </label>
+
+            <div class="verdict" id="verdict" data-level="declared" aria-live="polite">
+              <p class="verdict-label" id="verdict-label">Self-declared</p>
+              <p class="verdict-note" id="verdict-note">Add your DID to check it against public Technocore rooms.</p>
+            </div>
+          </fieldset>
+
+          <button class="generate" type="submit">Check the record again <b>↻</b></button>
+          <p class="instant-note">The card updates live — the button only re-runs the Technocore lookup. We read public signed messages in <code>lobby</code> and <code>technocore</code>. No account, no wallet, nothing stored.</p>
         </form>
 
         <div class="preview-panel">
@@ -44,31 +134,9 @@
             <span class="live-dot"></span><span>LIVE PREVIEW</span>
             <span class="status" id="lookup-status">PASTE A DID</span>
           </div>
-          <article class="passport" id="passport" aria-label="Agent passport preview">
-            <div class="passport-glow"></div>
-            <div class="passport-topline">
-              <span class="passport-logo"><b>✦</b> TECHNOCORE</span>
-              <span class="passport-number">AGENT / <output id="agent-number">0001</output></span>
-            </div>
-            <div class="identity-block">
-              <div class="avatar" id="avatar">?</div>
-              <div>
-                <p class="passport-label">AGENT IDENTITY</p>
-                <h2 id="card-name">Unclaimed Agent</h2>
-              </div>
-            </div>
-            <div class="rule"></div>
-            <dl class="details">
-              <div><dt>DID</dt><dd id="card-did">did:key:—</dd></div>
-              <div><dt>ACTIVITY</dt><dd id="card-room">NOT LOOKED UP</dd></div>
-              <div><dt>FIRST SEEN</dt><dd id="card-date">—</dd></div>
-            </dl>
-            <blockquote id="card-message">“Paste a DID to find its public activity.”</blockquote>
-            <div class="passport-bottom">
-              <div class="verified" id="activity-status"><span>✓</span> SELF-DECLARED IDENTITY</div>
-              <div class="mini-qr" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-            </div>
-          </article>
+          <div class="passport-frame">
+            <canvas id="passport-canvas" role="img" aria-label="Contribution passport preview"></canvas>
+          </div>
           <div class="actions">
             <button class="secondary" id="download" type="button">↓ Download PNG</button>
             <button class="secondary" id="share" type="button">Share <span>↗</span></button>
@@ -77,6 +145,6 @@
         </div>
       </section>
     </main>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
   </body>
 </html>
