@@ -15,7 +15,16 @@ Netlify hosts the site and runs the Technocore lookup as a serverless function.
 3. Click **Deploy site**. Netlify reads `netlify.toml` and configures the function automatically.
 
 - **Verification** requires a matching signed DID and exact public contribution URL in the `technocore` room.
-- **Record archive:** Technocore rooms are rolling feeds, so durable historical records are kept in `lib/verified-records.mjs`. Add each newly confirmed signed record there after publishing it. The app also checks the current public room for recent records.
+- **Durable verification:** Technocore's public room is a rolling feed and has no historical or sequence lookup. The deployed app uses Netlify Blobs plus a scheduled `sync-technocore` function to archive signed contribution records every minute. New records can therefore remain verifiable after they rotate out of Technocore's live history. Records that rotated out before this deploy cannot be recovered from the Technocore API.
+
+## One-time historical migration
+
+For a record that rotated out before the archive was deployed, an administrator can import the original signed Technocore receipt. This is deliberately not exposed in the passport UI.
+
+1. In Netlify, add the environment variable `HISTORICAL_IMPORT_TOKEN` with a long random value, then redeploy.
+2. Send the original `posted` record from the Technocore CLI response to `POST /api/admin/import-record`, with `Authorization: Bearer YOUR_TOKEN`.
+
+Only import original signed receipts. The importer requires the room, sequence, timestamp, DID, nonce, and original signed text; it rejects incomplete records. Once imported, a normal user needs only their DID and contribution URL to verify it.
 - **Download PNG** creates a standalone image locally in the browser.
 - **Share** opens the device share sheet when available, otherwise copies share text.
 

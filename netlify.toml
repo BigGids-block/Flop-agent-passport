@@ -6,3 +6,8 @@
   from = "/api/activity"
   to = "/.netlify/functions/activity"
   status = 200
+
+[[redirects]]
+  from = "/api/admin/import-record"
+  to = "/.netlify/functions/import-record"
+  status = 200
